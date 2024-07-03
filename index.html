@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive 3D World</title>
+    <title>3D Website</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/ngokevin/aframe-click-component/v0.6.0/dist/aframe-click-component.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -24,81 +25,54 @@
 </head>
 <body>
     <a-scene>
-        <a-assets>
-            <a-asset-item id="tree-obj" src="https://cdn.aframe.io/aframe/examples/boilerplate/loader/assets/tree.obj"></a-asset-item>
-            <a-asset-item id="tree-mtl" src="https://cdn.aframe.io/aframe/examples/boilerplate/loader/assets/tree.mtl"></a-asset-item>
-        </a-assets>
-
-        <a-sky color="#ECECEC"></a-sky>
-
-        <a-light type="ambient" color="#445451"></a-light>
-        <a-light type="point" intensity="2" position="2 4 4"></a-light>
-
-        <a-entity 
-            obj-model="obj: #tree-obj; mtl: #tree-mtl" 
-            position="-3 0 -5" 
-            scale="0.05 0.05 0.05"
-            click-component></a-entity>
-
+        <a-light type="ambient" color="#888"></a-light>
+        <a-light type="point" intensity="1.5" position="3 6 5"></a-light>
+        
         <a-box 
-            position="1 0.5 -3" 
-            rotation="0 45 0" 
-            color="#4CC3D9" 
-            animation="property: rotation; to: 0 405 0; loop: true; dur: 10000"
-            click-component></a-box>
-
+            position="-2 1 -4" 
+            rotation="0 30 0" 
+            color="#8A2BE2" 
+            animation="property: rotation; to: 0 390 0; loop: true; dur: 10000"
+            click-component
+            class="clickable"></a-box>
+        
         <a-sphere 
-            position="-1 1.25 -5" 
+            position="1 1.5 -3" 
             radius="1.25" 
-            color="#EF2D5E" 
-            animation="property: position; to: -1 3 -5; dir: alternate; dur: 2000; loop: true"
-            click-component></a-sphere>
-
+            color="#FF4500" 
+            animation="property: position; to: 1 2.5 -3; dir: alternate; dur: 1500; loop: true"
+            click-component
+            class="clickable"></a-sphere>
+        
         <a-cylinder 
-            position="3 0.75 -2" 
+            position="2 0.75 -5" 
             radius="0.5" 
             height="1.5" 
-            color="#FFC65D" 
-            animation="property: scale; to: 1.5 1.5 1.5; dir: alternate; dur: 2000; loop: true"
-            click-component></a-cylinder>
+            color="#FFD700" 
+            animation="property: scale; to: 1 2 1; dir: alternate; dur: 2500; loop: true"
+            click-component
+            class="clickable"></a-cylinder>
 
-        <a-torus 
-            position="0 1.5 -4" 
-            radius="1" 
-            tube="0.4" 
-            color="#7BC8A4"
-            animation="property: rotation; to: 360 360 0; loop: true; dur: 5000"
-            click-component></a-torus>
-
-        <a-plane 
-            position="0 0 -4" 
-            rotation="-90 0 0" 
-            width="20" 
-            height="20" 
-            color="#7BC8A4" 
-            shadow></a-plane>
-
-        <a-text 
-            value="Interactive 3D World" 
-            width="6" 
-            position="-3 4 -6" 
-            color="#FFF"></a-text>
+        <a-torus
+            position="4 2 -4"
+            radius="1"
+            tube="0.3"
+            color="#00FA9A"
+            animation="property: rotation; to: 0 0 360; loop: true; dur: 7000"
+            click-component
+            class="clickable"></a-torus>
     </a-scene>
 
     <script>
-        AFRAME.registerComponent('click-component', {
-            init: function () {
-                this.el.addEventListener('click', () => {
-                    const colors = ['#FF6347', '#4CC3D9', '#EF2D5E', '#FFC65D', '#7BC8A4'];
-                    let currentColor = this.el.getAttribute('color');
-                    let newColor = colors[Math.floor(Math.random() * colors.length)];
-                    while (newColor === currentColor) {
-                        newColor = colors[Math.floor(Math.random() * colors.length)];
-                    }
-                    this.el.setAttribute('color', newColor);
-                });
-            }
-        });
+        AFRAME.registerComponent("click-component", {
+  init: function () {
+    this.el.addEventListener("click", () => {
+      let currentColor = this.el.getAttribute("color");
+      let newColor = currentColor === "#FF6347" ? "#4CC3D9" : "#FF6347";
+      this.el.setAttribute("color", newColor);
+    });
+  },
+});
     </script>
 </body>
 </html>
